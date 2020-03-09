@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@model List<Order>
+
+    <div class="text-center">
+        <h1 class="display-4">Orders</h1>
+        @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+        {
+            <table>
+                <tr>
+                    <td>Date</td>
+                    <td>Number</td>
+                    <td>Company</td>
+                    <td>Amount</td>
+                    <td>Paid</td>
+                </tr>
+
+                @for (int i = 0; i < this.Model.Count; i++)
+                {
+                    <tr>
+                        <td>@Html.TextBoxFor(Model => Model[i].Date, new { @name = Model[i].Date, @readOnly = true })</td>
+                        <td>@Html.TextBoxFor(Model => Model[i].Number, new { @name = Model[i].Number, @readOnly = true })</td>
+                        <td>@Html.TextBoxFor(Model => Model[i].Company, new { @name = Model[i].Company, @readOnly = true })</td>
+                        <td>@Html.TextBoxFor(Model => Model[i].Amount, new { @name = Model[i].Amount, @readOnly = true })</td>
+                        <td>@Html.CheckBoxFor(Model => Model[i].Paid, new { @checked = Model[i].Paid })</td>
+                    </tr>
+                }
+            </table>
+            <button type="submit" value="Save">Submit</button>
+            <br />
+            @ViewBag.Message
+            @TempData["Success"]
+
+        }
+
+    </div>
